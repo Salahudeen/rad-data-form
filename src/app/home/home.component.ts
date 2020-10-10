@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   title = 'rad-data-form-issue';
 
-  constructor() { }
+  isView = true;
+  isViewSubject = new BehaviorSubject<boolean>(this.isView);
+  isView$ = this.isViewSubject.asObservable();
 
-  ngOnInit() {
+  toggle() {
+    this.isView = !this.isView;
+    console.log(this.isView);
+    this.isViewSubject.next(this.isView);
   }
 }
